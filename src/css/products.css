@@ -69,7 +69,7 @@ body {
 }
 
 .main_content .card {
-  width: 30%;
+  width: 50%;
   border-radius: 15px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -78,13 +78,11 @@ body {
   position: relative;
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 }
 
-.main_content .card .card_img {
-  margin-top: -5vw;
+.main_content .card {
+  margin-top: -10px;
 }
 
 .main_content .card .card_img img {
@@ -106,18 +104,16 @@ body {
 }
 
 .main_content .card .card_header p {
-  font-size: 14px;
   text-align: center;
   margin: 8px 0;
 }
 
 .main_content .card .card_header .price .qty {
-  font-size: 25px;
+  font-size: 20px;
   color: #000000;
 }
 
-.main_content .card .card_header .price span {
-  font-size: 15px;
+.main_content .card .card_header .price {
   display: inline-block;
   vertical-align: top;
 }
