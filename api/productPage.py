@@ -124,7 +124,7 @@ def getAllproduct():
 
 # =============================== Return List of category products ================================== # 
 @app.route("/getAllproduct/<int:category_id>", methods=['GET'])
-def getElectronicsproduct(category_id):
+def getcategoryproduct(category_id):
     """
     Get category product
     """
