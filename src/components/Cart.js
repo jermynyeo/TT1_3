@@ -19,6 +19,13 @@ function Cart() {
     setProductData(newData);
   };
 
+  const updateQty = (id, newqty) => {
+    let newObj = productData.filter((x) => x.id === id);
+    newObj[0].qty = parseInt(newqty);
+    let newData = productData.map((x) => (x.id === id ? newObj[0] : x));
+    setProductData(newData);
+  };
+
   const calculateTotal = () => {
     let total = productData.reduce(
       (prev, curr) => prev + curr.qty * curr.price,
@@ -30,24 +37,10 @@ function Cart() {
     // call DB
     setProductData([]);
   };
+
   return (
     <div className="Cart">
       <div className="cartDiv">
-        <div className="cartProductDiv">
-          <div className="shoppingCartGreetings">View your shopping Cart!</div>
-          <div className="shoppingCartDisplay">
-            {productData.map((curr) => (
-              <CartDisplay
-                title={curr.title}
-                price={curr.price}
-                image={curr.image}
-                qty={curr.qty}
-                id={curr.id}
-                deleteProduct={deleteProduct}
-              />
-            ))}
-          </div>
-        </div>
         <div className="checkoutWrapper">
           <div className="checkoutGreetings">Checkout here!</div>
           <div className="checkoutDisplay">
@@ -61,6 +54,22 @@ function Cart() {
                 Checkout
               </button>
             </div>
+          </div>
+        </div>
+        <div className="cartProductDiv">
+          <div className="shoppingCartGreetings">View your shopping Cart!</div>
+          <div className="shoppingCartDisplay">
+            {productData.map((curr) => (
+              <CartDisplay
+                title={curr.title}
+                price={curr.price}
+                image={curr.image}
+                qty={curr.qty}
+                id={curr.id}
+                deleteProduct={deleteProduct}
+                updateQty={updateQty}
+              />
+            ))}
           </div>
         </div>
       </div>
