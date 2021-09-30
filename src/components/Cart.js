@@ -4,6 +4,8 @@ import CartDisplay from "./CartDisplay";
 import products from "../data/cart.json";
 import React, { useState, useEffect } from "react";
 
+import "../css/cart.css";
+
 function Cart() {
   let [productData, setProductData] = useState([]);
   useEffect(() => {
@@ -26,17 +28,7 @@ function Cart() {
   };
   const checkout = () => {
     // call DB
-    setProductData({});
-    // return (
-    //   <Toast>
-    //     <Toast.Header>
-    //       <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-    //       <strong className="me-auto">Bootstrap</strong>
-    //       <small>11 mins ago</small>
-    //     </Toast.Header>
-    //     <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
-    //   </Toast>
-    // );
+    setProductData([]);
   };
   return (
     <div className="Cart">
