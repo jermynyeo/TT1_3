@@ -21,17 +21,17 @@ class Order_Item(db.Model):
     total_price = db.Column(db.Float(precision=2), nullable=True)
 
     def __init__(self, id, customer_id, status, created_at):
-        self.id = id
-        self.customer_id = customer_id
-        self.status = status
-        self.created_at = created_at
+        self.product_id = product_id
+        self.order_id = order_id
+        self.product_qty = product_qty
+        self.total_price = total_price
 
     def json(self):
         order_item_entry = {
-            "id": self.id,
-            "customer_id": self.customer_id,
-            "status": self.status,
-            "created_at": self.created_at,
+            "product_id": self.product_id,
+            "order_id": self.order_id,
+            "product_qty": self.product_qty,
+            "total_price": self.total_price,
         }
         return order_item_entry
 
@@ -88,6 +88,7 @@ class Order(db.Model):
         }
         return order_entry
 
+
 # =============================== Return List of all products in OrderItem ================================== #
 @app.route("/getAllOrderItem", methods=['GET'])
 def getAllOrderItem():
@@ -97,16 +98,17 @@ def getAllOrderItem():
     order_items = Order_Item.query.all()
     return jsonify({"order_items": [order_item.json() for order_item in order_items ]}), 200
 
-# =============================== Get item from Order Item by order id and product id================================== #
-@app.route("/getOrderItem/<int:order_id>/<int:product_id>", methods=["GET"])
-def getOrderItem(order_id, product_id):
+
+# =============================== Return List of all products in OrderItem ================================== #
+@app.route("/getOrderItem/<int:order_id>", methods=['GET'])
+def getOrderItem(order_id):
     """
-    Get order_item by order_id and product_id
+    Get all product in an order_id 
     """
-    order_item = Order_Item.query.filter_by(order_id=order_id, product_id=product_id).first()
-    if (order_item):
-        return order_item.json(), 200
-    return jsonify({"error": f"There is no data with order id: {order_id} and product id: {product_id}"})
+    order_items = Order_Item.query.filter_by(order_id=order_id).first()
+    if (order_items):
+        return jsonify({"order_items": [order_item.json() for order_item in order_items ]}), 200
+    return jsonify({"error": f"There is no data with order id: {order_id}"})
 
 # =============================== Delete Items from Order Item ================================== #
 @app.route("/deleteOrderItem/<int:order_id>/<int:product_id>", methods=["DELETE"])
