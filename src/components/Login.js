@@ -2,27 +2,37 @@ import { Redirect } from "react-router-dom"
 import { useState } from "react"
 import customers from '../data/customers.json'
 
-const Login = ({setLoggedin, redirect, setRedirect}) => {
+const Login = ({setLoggedin, redirect, setRedirect, setRegisterRedirect}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     let errorMessage
+    setRegisterRedirect(false)
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault()
-        
-        customers.forEach((customer) => {
-            if (customer.username === username) {
-                if (customer.password === password) {
-                    setLoggedin(true)
-                    setRedirect(true)
-                    console.log(redirect)
-                } else {
-                    errorMessage = (<h2>Wrong password</h2>)
-                }
-            } else {
-                errorMessage = (<h2>No account found</h2>)
-            }
+
+        const res = await fetch('http://localhost:5000/auth/login' , {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            credentials: 'include',         
+            body: JSON.stringify({username,password})
         })
+        const data = await res.json()
+        setRedirect(true)
+        setLoggedin(true)
+        
+        // customers.forEach((customer) => {
+        //     if (customer.username === username) {
+        //         if (customer.password === password) {
+        //             setLoggedin(true)
+        //             setRedirect(true)
+        //         } else {
+        //             errorMessage = (<h2>Wrong password</h2>)
+        //         }
+        //     } else {
+        //         errorMessage = (<h2>No account found</h2>)
+        //     }
+        // })
     }
 
     if (redirect) {
