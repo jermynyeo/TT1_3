@@ -1,5 +1,4 @@
 import Button from "react-bootstrap/Button";
-import Navbar from "./Navbar";
 import CartDisplay from "./CartDisplay";
 import products from "../data/cart.json";
 import React, { useState, useEffect } from "react";
@@ -27,7 +26,6 @@ function Cart() {
 
   return (
     <div className="Cart">
-      <Navbar />
       <div className="cartDiv">
         <div className="cartProductDiv">
           <div className="shoppingCartGreetings">View your shopping Cart!</div>
