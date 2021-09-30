@@ -2,10 +2,9 @@ import { Redirect } from "react-router-dom"
 import { useState } from "react"
 import customers from '../data/customers.json'
 
-const Login = ({setLoggedin}) => {
+const Login = ({setLoggedin, redirect, setRedirect}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [redirect, setRedirect] = useState(false)
     let errorMessage
 
     const onSubmit = (e) => {
@@ -14,9 +13,9 @@ const Login = ({setLoggedin}) => {
         customers.forEach((customer) => {
             if (customer.username === username) {
                 if (customer.password === password) {
-
+                    setLoggedin(true)
                     setRedirect(true)
-
+                    console.log(redirect)
                 } else {
                     errorMessage = (<h2>Wrong password</h2>)
                 }

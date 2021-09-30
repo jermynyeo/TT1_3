@@ -1,22 +1,18 @@
 import { Link } from "react-router-dom"
 
-const Nav = ({name, setName}) => {
+const Nav = ({loggedin, setLoggedin, setRedirect}) => {
     const onLogout = () => {
-        fetch('' , {
-            method: 'POST',
-            headers:{'Content-Type': 'application/json'},
-            credentials: 'include',
-        })
-        setName('')
+        setLoggedin(false)
+        setRedirect(false)
     }
     
     let menu
 
-    if(name === ''){
+    if(loggedin == false){
         menu = (
         <ul className="navbar-nav me-auto mb-2 mb-md-0">
         <li className="nav-item">
-            <Link to="/login" className="nav-link active" aria-current="page" href="#">Login</Link>
+            <Link to="/" className="nav-link active" aria-current="page" href="#">Login</Link>
         </li>
         <li className="nav-item">
             <Link to="/register" className="nav-link active" aria-current="page" href="#">Register</Link>
@@ -27,7 +23,7 @@ const Nav = ({name, setName}) => {
         menu = (
         <ul className="navbar-nav me-auto mb-2 mb-md-0">
         <li className="nav-item">
-            <Link to="/login" className="nav-link active" aria-current="page" href="#" onClick={onLogout}>Logout</Link>
+            <Link to="/" className="nav-link active" aria-current="page" href="#" onClick={onLogout}>Logout</Link>
         </li>
         </ul>
         )

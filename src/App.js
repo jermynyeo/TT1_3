@@ -7,13 +7,15 @@ import Home from './components/Home'
 
 function App() {
   const [loggedin, setLoggedin] = useState(false)
+  const [redirect, setRedirect] = useState(false)
+
 
   return (
     <div className="App">
       <Router>
-        <Nav loggedin={loggedin} setLoggedin={setLoggedin}/>
+        <Nav loggedin={loggedin} setLoggedin={setLoggedin} setRedirect={setRedirect}/>
         <main className="form-signin">
-          <Route path="/" exact component={() => <Login loggedin={loggedin} setLoggedin={setLoggedin} />} />
+          <Route path="/" exact component={() => <Login loggedin={loggedin} setLoggedin={setLoggedin} redirect={redirect} setRedirect={setRedirect} />} />
           <Route path="/home" component={Home} />
         </main>
       </Router>
