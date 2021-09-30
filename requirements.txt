@@ -1,0 +1,4 @@
+SQLAlchemy==1.4.22
+Flask==2.0.1
+Flask-SQLAlchemy==2.5.1
+mysql-connector-python-rf==2.2.2
