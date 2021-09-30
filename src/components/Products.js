@@ -14,13 +14,23 @@ function Products() {
     return data;
   }
 
+  const [products1, setProducts] = useState([]);
+
+  const [tempCart, setCartItems] = useState([]);
+
+  //   useEffect(() => {
+  //     async function getProducts() {
+  //       const prodFromServer = await fetchAllTask();
+  //       setProducts(prodFromServer);
+  //     }
+  //     getProducts();
+  //   }, []);
+
   const [selId, setCatId] = useState("");
   //   const [selOptions, setSelOptions] = useState([{ value: "All", label: "All" }]);
   function ddlHandler(e) {
     setCatId(e.value);
   }
-
-  const [tempCart, setCartItems] = useState([]);
 
   function addToCart(item) {
     setCartItems([...tempCart, item]);
