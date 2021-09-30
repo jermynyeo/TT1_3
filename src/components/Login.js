@@ -3,28 +3,39 @@ import { useState } from "react";
 import customers from "../data/customers.json";
 import "../css/form.css";
 
-const Login = ({ setLoggedin, redirect, setRedirect }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  let errorMessage;
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const Login = ({setLoggedin, redirect, setRedirect, setRegisterRedirect}) => {
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    let errorMessage
+    setRegisterRedirect(false)
 
-    customers.forEach((customer) => {
-      if (customer.username === username) {
-        if (customer.password === password) {
-          setLoggedin(true);
-          setRedirect(true);
-          console.log(redirect);
-        } else {
-          errorMessage = <h2>Wrong password</h2>;
-        }
-      } else {
-        errorMessage = <h2>No account found</h2>;
-      }
-    });
-  };
+    const onSubmit = async (e) => {
+        e.preventDefault()
+
+        const res = await fetch('http://localhost:5000/auth/login' , {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            credentials: 'include',         
+            body: JSON.stringify({username,password})
+        })
+        const data = await res.json()
+        setRedirect(true)
+        setLoggedin(true)
+        
+        // customers.forEach((customer) => {
+        //     if (customer.username === username) {
+        //         if (customer.password === password) {
+        //             setLoggedin(true)
+        //             setRedirect(true)
+        //         } else {
+        //             errorMessage = (<h2>Wrong password</h2>)
+        //         }
+        //     } else {
+        //         errorMessage = (<h2>No account found</h2>)
+        //     }
+        // })
+    }
 
   if (redirect) {
     return <Redirect to="/home" />;
