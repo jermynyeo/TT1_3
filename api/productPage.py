@@ -136,12 +136,16 @@ def getElectronicsproduct(category_id):
         return jsonify({"message" : f"No product under {category}"})
 
 # =============================== Update product quantity ================================== # 
-@app.route("/ProcessOrder", methods = ['POST'])
-def ProcessOrder():
+@app.route("/ProcessOrder/<int:product_id>", methods = ['POST'])
+def ProcessOrder(product_id):
     """
     Updating of product qty
     """
+    product = Product.query.filter_by(product_id = product_id)
     
+    if (product):
+        product.qty = product 
+        db.session.commit()
 
 if __name__=='__main__':
     app.run(port=5000, debug=True)
