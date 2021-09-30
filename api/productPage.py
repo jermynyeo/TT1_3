@@ -79,7 +79,7 @@ def getAllproduct():
     Get all product
     """
     products = Product.query.all()
-    return jsonify({"products": [Product.json() for Product in products]}), 200
+    return jsonify({"products": [product.json() for product in products]}), 200
 
 # =============================== Return List of category products ================================== # 
 @app.route("/getAllproduct/<int:category_id>", methods=['GET'])
@@ -89,7 +89,7 @@ def getcategoryproduct(category_id):
     """
     products = Product.query.filter_by(category_id = category_id).all()
     if len(products) > 0:
-        return jsonify({"products": [Product.json() for Product in products]}), 200
+        return jsonify({"products": [product.json() for product in products]}), 200
     else:
         category = Category.query.filter_by(id = category_id)
         return jsonify({"message" : f"No product under {category}"})
@@ -107,4 +107,4 @@ def ProcessOrder(product_id):
         db.session.commit()
 
 if __name__=='__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5100, debug=True)
