@@ -93,14 +93,9 @@ class Order(db.Model):
         return order_entry
 
 # =============================== Get User's Cart  ================================== #
-@app.route("/getCart", methods = ['GET'])
+@app.route("/getCart/<int:customer_id>", methods = ['GET'])
 def getCart():
     # check if user already has an order
-    data = request.get_json()
-    # data = json.loads(data)
-
-    customer_id = data['customer_id']
-
 
     order = Order.query.filter_by(customer_id=customer_id).first()
 
