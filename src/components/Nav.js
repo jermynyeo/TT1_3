@@ -1,46 +1,53 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import "../css/navbar.css";
 
-const Nav = ({loggedin, setLoggedin, setRedirect}) => {
-    const onLogout = () => {
-        setLoggedin(false)
-        setRedirect(false)
-    }
-    
-    let menu
+const Nav = ({ loggedin, setLoggedin, setRedirect }) => {
+  const onLogout = () => {
+    setLoggedin(false);
+    setRedirect(false);
+  };
 
-    if(loggedin == false){
-        menu = (
-        <ul className="navbar-nav me-auto mb-2 mb-md-0">
+  let menu;
+
+  if (loggedin == false) {
+    menu = (
+      <ul className="container-right">
         <li className="nav-item">
-            <Link to="/" className="nav-link active" aria-current="page" href="#">Login</Link>
+          <Link to="/" className="nav-link active" aria-current="page" href="#">
+            Login
+          </Link>
         </li>
         <li className="nav-item">
-            <Link to="/register" className="nav-link active" aria-current="page" href="#">Register</Link>
+          <Link to="/register" className="nav-link active" aria-current="page" href="#">
+            Register
+          </Link>
         </li>
-        </ul>
-        )
-    } else {
-        menu = (
-        <ul className="navbar-nav me-auto mb-2 mb-md-0">
+      </ul>
+    );
+  } else {
+    menu = (
+      <ul className="container-right">
         <li className="nav-item">
-            <Link to="/" className="nav-link active" aria-current="page" href="#" onClick={onLogout}>Logout</Link>
+          <Link to="/" className="nav-link active" aria-current="page" href="#" onClick={onLogout}>
+            Logout
+          </Link>
         </li>
-        </ul>
-        )
-    }
+      </ul>
+    );
+  }
 
-    return (
-        <div>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                <div className="container-fluid">
-                <Link to="/" className="navbar-brand" href="#">Home</Link>
-                <div>
-                    {menu}
-                </div>
-                </div>
-            </nav>
+  return (
+    <div>
+      <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <div className="container-fluid">
+          <Link to="/" className="container-left" href="#">
+            Home
+          </Link>
+          <div className="menu">{menu}</div>
         </div>
-    )
-}
+      </nav>
+    </div>
+  );
+};
 
-export default Nav
+export default Nav;

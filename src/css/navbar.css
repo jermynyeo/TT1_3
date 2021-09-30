@@ -1,24 +1,32 @@
 .topnav {
-    background-color: #333;
-    overflow: hidden;
+  background-color: #333;
+  overflow: hidden;
 }
 .topnav li {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    display: inline;
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: inline;
 }
 
 .topnav li:hover {
-    background-color: #ddd;
-    color: black;
+  background-color: #ddd;
+  color: black;
 }
-  
-  /* Add a color to the active/current link */
-  .topnav li.active {
-    background-color: #04AA6D;
-    color: white;
+
+/* Add a color to the active/current link */
+.topnav li.active {
+  background-color: #04aa6d;
+  color: white;
+}
+
+.container-fluid {
+  display: flex;
+}
+
+.container-fluid ul {
+  list-style-type: none;
 }
