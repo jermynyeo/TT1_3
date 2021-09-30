@@ -7,8 +7,15 @@ import { useState, useEffect } from "react";
 import Button from "./Button";
 
 function Products() {
-  const [selId, setCatId] = useState("");
+  async function fetchAllTask() {
+    const res = await fetch("http://localhost:5000/getAllproduct");
+    const data = await res.json();
+    // console.log("Fetched Data:", res.data);
+    return data;
+  }
 
+  const [selId, setCatId] = useState("");
+  //   const [selOptions, setSelOptions] = useState([{ value: "All", label: "All" }]);
   function ddlHandler(e) {
     setCatId(e.value);
   }
@@ -18,8 +25,6 @@ function Products() {
   function addToCart(item) {
     setCartItems([...tempCart, item]);
   }
-
-  console.log(tempCart);
 
   const listItemsSel = products.map((item) =>
     item.category_id === selId ? (
@@ -61,6 +66,7 @@ function Products() {
   ));
 
   const options = categories.map((category) => ({ value: category.id, label: category.name }));
+  //   setSelOptions([...selOptions, options]);
 
   return (
     <div className="main_content">
