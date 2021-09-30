@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "username": "username1",
+        "password": "password1",
+        "first_name": "Warren",
+        "last_name": "Prandy",
+        "postal_code": "650382",
+        "gender": "Non-binary",
+        "created_at": "2021-09-10"
+    },
+    {
+        "id": 2,
+        "username": "username2",
+        "password": "password2",
+        "first_name": "Adelind",
+        "last_name": "Bowyer",
+        "postal_code": "650381",
+        "gender": "Female",
+        "created_at": "2021-04-01"
+    },
+    {
+        "id": 3,
+        "username": "username3",
+        "password": "password3",
+        "first_name": "Bethany",
+        "last_name": "Baldree",
+        "postal_code": "678230",
+        "gender": "Genderqueer",
+        "created_at": "2021-08-25"
+    },
+    {
+        "id": 4,
+        "username": "username4",
+        "password": "password4",
+        "first_name": "Edie",
+        "last_name": "Colleymore",
+        "postal_code": "10250",
+        "gender": "Non-binary",
+        "created_at": "2021-04-24"
+    },
+    {
+        "id": 5,
+        "username": "username5",
+        "password": "password5",
+        "first_name": "Inge",
+        "last_name": "Gimson",
+        "postal_code": "650385",
+        "gender": "Male",
+        "created_at": "2021-09-26"
+    }
+]
