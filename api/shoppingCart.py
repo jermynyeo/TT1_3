@@ -101,7 +101,7 @@ def getCart():
 
     # customer_id = data['customer_id']
 
-    customer_id = 1
+    customer_id = 2
 
     order = Order.query.filter_by(customer_id=customer_id).first()
 
@@ -112,8 +112,7 @@ def getCart():
         
     order_id = order.id
     order_items = getOrderItems(order_id)
-
-    return order_items, 200
+    return jsonify({"order_items": order_items}), 200
 
 
 # =============================== Insert Products in Cart into Database ================================== #
@@ -133,6 +132,8 @@ def addToCart():
         order = Order(customer_id, status, created_at)
         
     product_id = data['product_id']
+    product_price = getProductPrice(product_id)
+
     order_id = order.id
     
     # Item Exists
@@ -142,10 +143,14 @@ def addToCart():
         product_qty = order_item.product_qty + 1
         if ('product_qty' in data.keys()):
             product_qty = data['product_qty']
-        return jsonify({"status": updateOrderItem(order_id, product_id, product_qty)})
+        total_price = product_price * product_qty
+        return jsonify({"status": updateOrderItem(order_id, product_id, product_qty, total_price)})
     else: 
         # new item
-        total_price = 0 # to update with product price
+        product_qty = 1
+        if ('product_qty' in data.keys()):
+            product_qty = data['product_qty']
+        total_price = product_price * product_qty
         order_item = Order_Item(product_id, order_id, product_qty, total_price)
         return jsonify({"status": addOrderItem(order_item)})
     
@@ -185,18 +190,22 @@ def addOrderItem(order_item):
     db.session.add(order_item)
     db.session.commit()
 
-    if (Order_Item.query.filter_by(order_id=order_id, product_id=product_id).first()):
+    if (Order_Item.query.filter_by(order_id=order_item.order_id, product_id=order_item.product_id).first()):
         return "Item Creation Successful"
     return "Item Creation Failed"
 
 # =============================== Add Items from Order Item ================================== #
-def updateOrderItem(order_id, product_id, producy_qty):
+def updateOrderItem(order_id, product_id, product_qty, total_price):
     """
     Update record to order_item
     """
-    order_item = Order_Item.query.filter_by(order_id = order_id, product_id = product_id).first()
-    order_item.product_qty = producy_qty
-    db.session.commit()
+    if (product_qty <= 0):
+        deleteOrderItem(order_id, product_id)
+    else:
+        order_item = Order_Item.query.filter_by(order_id = order_id, product_id = product_id).first()
+        order_item.product_qty = product_qty
+        order_item.total_price = total_price
+        db.session.commit()
     return "Successful Update"
 
 # =============================== Delete Items from Order Item ================================== #
@@ -210,6 +219,11 @@ def deleteOrderItem(order_id, product_id):
         db.session.commit()
         return "Successfully Deleted"
     return "Record does not exist"
+
+def getProductPrice(product_id):
+    product = Product.query.get(product_id)
+    return product.price
+
 
 if __name__=='__main__':
     app.run(port=5000, debug=True)
