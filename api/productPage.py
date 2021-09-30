@@ -12,29 +12,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 ############ Attach Flask app to database / Enable Cross Origin Resource Sharing with Flask app ############
 db = SQLAlchemy(app)
 
-class Order_Item(db.Model):
-    __tablename__ = 'order_item'
-
-    product_id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    product_qty = db.Column(db.Integer, nullable=True)
-    total_price = db.Column(db.Float(precision=2), nullable=True)
-
-    def __init__(self, id, customer_id, status, created_at):
-        self.product_id = product_id
-        self.order_id = order_id
-        self.product_qty = product_qty
-        self.total_price = total_price
-
-    def json(self):
-        order_item_entry = {
-            "product_id": self.product_id,
-            "order_id": self.order_id,
-            "product_qty": self.product_qty,
-            "total_price": self.total_price,
-        }
-        return order_item_entry
-
 
 ######### Product Object Creation #########
 class Product(db.Model):
@@ -48,45 +25,27 @@ class Product(db.Model):
     image = db.Column(db.Text, nullable=False)
     qty = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, id, customer_id, status, created_at):
+    def __init__(self, id, title, price, description, category_id, image, qty):
         self.id = id
-        self.customer_id = customer_id
-        self.status = status
-        self.created_at = created_at
-
+        self.title = title
+        self.price = price
+        self.description = description
+        self.category_id = category_id
+        self.image = image
+        self.qty = qty
+        
     def json(self):
         product_entry = {
             "id": self.id,
             "customer_id": self.customer_id,
-            "status": self.status,
-            "created_at": self.created_at,
+            "price": self.price,
+            "description": self.description,
+            "category_id": self.category_id,
+            "image": self.image,
+            "qty": self.qty,
         }
         return product_entry
 
-
-######### Order Object Creation #########
-class Order(db.Model):
-    __tablename__ = 'order'
-
-    id = db.Column(db.Integer, primary_key=True)
-    customer_id = db.Column(db.Integer, nullable=False)
-    status = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.Date, nullable=False)
-
-    def __init__(self, id, customer_id, status, created_at):
-        self.id = id
-        self.customer_id = customer_id
-        self.status = status
-        self.created_at = created_at
-
-    def json(self):
-        order_entry = {
-            "id": self.id,
-            "customer_id": self.customer_id,
-            "status": self.status,
-            "created_at": self.created_at,
-        }
-        return order_entry
 
 ######### Category Object Creation #########
 class Category(db.Model):
