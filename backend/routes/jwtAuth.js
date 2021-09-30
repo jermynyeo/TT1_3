@@ -40,12 +40,12 @@ router.post("/register", async (req, res) => {
 
 //login route
 router.post("/login", async (req, res) => {
-  const { id, password } = req.body;
+  const { username, password } = req.body;
   try {
     //check if user exists
     const user = await pool.query(
       "SELECT * FROM customer WHERE username = $1",
-      [id]
+      [username]
     );
 
     if (user.rows.length === 0) {
