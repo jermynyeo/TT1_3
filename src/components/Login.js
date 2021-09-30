@@ -13,28 +13,28 @@ import "../css/form.css";
     const onSubmit = async (e) => {
         e.preventDefault()
 
-        // const res = await fetch('http://localhost:5000/auth/login' , {
-        //     method: 'POST',
-        //     headers:{'Content-Type': 'application/json'},
-        //     credentials: 'include',         
-        //     body: JSON.stringify({username,password})
-        // })
-        // const data = await res.json()
+        const res = await fetch('http://localhost:5000/auth/login' , {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            credentials: 'include',         
+            body: JSON.stringify({username,password})
+        })
+        const data = await res.json()
         setRedirect(true)
         setLoggedin(true)
         
-        customers.forEach((customer) => {
-            if (customer.username === username) {
-                if (customer.password === password) {
-                    setLoggedin(true)
-                    setRedirect(true)
-                } else {
-                    errorMessage = (<h2>Wrong password</h2>)
-                }
-            } else {
-                errorMessage = (<h2>No account found</h2>)
-            }
-        })
+        // customers.forEach((customer) => {
+        //     if (customer.username === username) {
+        //         if (customer.password === password) {
+        //             setLoggedin(true)
+        //             setRedirect(true)
+        //         } else {
+        //             errorMessage = (<h2>Wrong password</h2>)
+        //         }
+        //     } else {
+        //         errorMessage = (<h2>No account found</h2>)
+        //     }
+        // })
     }
 
   if (redirect) {
