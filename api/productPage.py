@@ -89,7 +89,7 @@ class Order(db.Model):
         return order_entry
 
 ######### Category Object Creation #########
-class Order(db.Model):
+class Category(db.Model):
     __tablename__ = 'category'
 
     id = db.Column(db.Integer, primary_key=True)
@@ -136,9 +136,12 @@ def getElectronicsproduct(category_id):
         return jsonify({"message" : f"No product under {category}"})
 
 # =============================== Update product quantity ================================== # 
-@app.route("/addToCart", methods = ['POST'])
-def addToCart():
-
+@app.route("/ProcessOrder", methods = ['POST'])
+def ProcessOrder():
+    """
+    Updating of product qty
+    """
+    
 
 if __name__=='__main__':
     app.run(port=5000, debug=True)
