@@ -5,16 +5,23 @@ import customers from '../data/customers.json'
 const Register = ({setRedirect, redirect}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [postal, setPostal] = useState('')
+    const [first_name, setFirstName] = useState('')
+    const [last_name, setLastName] = useState('')
+    const [postal_code, setPostal] = useState('')
     const [gender, setGender] = useState('')
     let id
 
     const onSubmit = async (e) => {
         e.preventDefault()
         setRedirect(true)
-        id = customers.at(-1).id + 1
+        const res = await fetch('http://localhost:5000/auth/register' , {
+            method: 'POST',
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({username,first_name,last_name,postal_code,gender,password})
+        })
+        const data = await res.json()
+        console.log(data);
+
         
     }
 
