@@ -96,12 +96,11 @@ class Order(db.Model):
 @app.route("/getCart", methods = ['GET'])
 def getCart():
     # check if user already has an order
-    # data = request.get_json()
+    data = request.get_json()
     # data = json.loads(data)
 
-    # customer_id = data['customer_id']
+    customer_id = data['customer_id']
 
-    customer_id = 2
 
     order = Order.query.filter_by(customer_id=customer_id).first()
 
