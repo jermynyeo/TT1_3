@@ -59,7 +59,7 @@ class Product(db.Model):
     def json(self):
         product_entry = {
             "id": self.id,
-            "customer_id": self.customer_id,
+            "title": self.customer_id,
             "price": self.price,
             "description": self.description,
             "category_id": self.category_id,
@@ -94,7 +94,7 @@ class Order(db.Model):
 
 # =============================== Get User's Cart  ================================== #
 @app.route("/getCart/<int:customer_id>", methods = ['GET'])
-def getCart():
+def getCart(customer_id):
     # check if user already has an order
 
     order = Order.query.filter_by(customer_id=customer_id).first()
@@ -106,8 +106,26 @@ def getCart():
         
     order_id = order.id
     order_items = getOrderItems(order_id)
-    return jsonify({"order_items": order_items}), 200
 
+    cart_items = []
+    cart_id = 1
+    for items in order_items: 
+        print (items)
+        item = {}
+        product_id = items['product_id']
+        product = getProductDetails(product_id)
+        item['id'] = cart_id
+        item['title'] = product.title
+        item['price'] = product.price
+        item['description'] = product.title
+        item['category_id'] = product.category_id
+        item['image'] = product.image
+        item['qty'] = items['product_qty']
+
+        cart_items.append(item)
+        cart_id += 1
+
+    return jsonify(cart_items), 200
 
 # =============================== Insert Products in Cart into Database ================================== #
 @app.route("/addToCart", methods = ['POST'])
@@ -218,6 +236,9 @@ def getProductPrice(product_id):
     product = Product.query.get(product_id)
     return product.price
 
+def getProductDetails(product_id):
+    return Product.query.get(product_id)
+
 
 if __name__=='__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5100, debug=True)
