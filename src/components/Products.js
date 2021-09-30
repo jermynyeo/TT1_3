@@ -17,13 +17,11 @@ function Products() {
     item.category_id === selId ? (
       <div className="card" key={item.id}>
         <div className="card_img">
-          <img src={item.image} />
+          <img src={item.image} alt="img" />
         </div>
         <div className="btn">Add to cart</div>
         <div className="card_header">
           <h2>{item.title}</h2>
-
-          {/* <p className="description">{item.description}</p> */}
           <p className="price">${item.price}</p>
           <p className="qty">Quantity Left: {item.qty}</p>
         </div>
@@ -33,7 +31,10 @@ function Products() {
     )
   );
 
-  const options = categories.map((category) => ({ value: category.id, label: category.name }));
+  const options = categories.map((category) => ({
+    value: category.id,
+    label: category.name,
+  }));
 
   return (
     <div className="main_content">

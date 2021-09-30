@@ -9,7 +9,9 @@ function CartDisplay(props) {
   let [num, setNum] = useState(0);
 
   const onChangeNum = (e) => {
-    console.log(e.target.value);
+    let newValue = e.target.value;
+    // console.log(props.id + " " + newValue);
+    props.updateQty(props.id, newValue);
   };
 
   return (
@@ -24,6 +26,7 @@ function CartDisplay(props) {
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           defaultValue={props.qty}
+          onChange={(e) => onChangeNum(e)}
         />
       </div>
       <div className="deleteButton">
