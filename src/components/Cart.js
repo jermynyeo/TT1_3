@@ -1,4 +1,5 @@
 import Button from "react-bootstrap/Button";
+import Toast from "react-bootstrap/Toast";
 import CartDisplay from "./CartDisplay";
 import products from "../data/cart.json";
 import React, { useState, useEffect } from "react";
@@ -23,7 +24,20 @@ function Cart() {
     );
     return total.toFixed(2);
   };
-
+  const checkout = () => {
+    // call DB
+    setProductData({});
+    // return (
+    //   <Toast>
+    //     <Toast.Header>
+    //       <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+    //       <strong className="me-auto">Bootstrap</strong>
+    //       <small>11 mins ago</small>
+    //     </Toast.Header>
+    //     <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+    //   </Toast>
+    // );
+  };
   return (
     <div className="Cart">
       <div className="cartDiv">
@@ -47,7 +61,11 @@ function Cart() {
           <div className="checkoutDisplay">
             <div className="totalPrice">Total: ${calculateTotal()}</div>
             <div>
-              <button type="button" class="btn btn-primary">
+              <button
+                type="button"
+                class="btn btn-primary"
+                onClick={() => checkout()}
+              >
                 Checkout
               </button>
             </div>

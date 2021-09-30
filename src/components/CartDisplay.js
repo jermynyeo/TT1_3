@@ -1,4 +1,17 @@
-function cartDisplay(props) {
+import React, { useState, useEffect } from "react";
+
+function CartDisplay(props) {
+  useEffect(() => {
+    // Run! Like go get some data from an API.
+    setNum(props.qty);
+    console.log(num);
+  }, []);
+  let [num, setNum] = useState(0);
+
+  const onChangeNum = (e) => {
+    console.log(e.target.value);
+  };
+
   return (
     <div className="productDiv">
       <img className="imageSize" src={props.image} alt="Italian Trulli" />
@@ -10,7 +23,7 @@ function cartDisplay(props) {
           class="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
-          value={props.qty}
+          defaultValue={props.qty}
         />
       </div>
       <div className="deleteButton">
@@ -26,4 +39,4 @@ function cartDisplay(props) {
   );
 }
 
-export default cartDisplay;
+export default CartDisplay;

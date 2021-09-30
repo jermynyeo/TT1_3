@@ -40,8 +40,8 @@ body {
 
 .Cart {
   height: 100vh;
-  width: 100vw;
-  background-color: pink;
+  width: 100%;
+  /* background-color: pink; */
 }
 
 .cartDiv {
@@ -50,7 +50,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
+  width: 100%;
 }
 .cartProductDiv {
   width: 100%;
@@ -89,7 +89,7 @@ body {
   border-width: small;
   border-radius: 20px;
   margin-top: 10px;
-  width: 100vw;
+  width: 100%;
   padding: 10px;
 
   /* background-color: pink; */
@@ -102,7 +102,7 @@ body {
   height: auto;
 }
 .deleteButton {
-  margin-left: 40px;
+  margin-left: 10px;
 }
 .checkoutWrapper {
   background-color: rgb(204, 204, 204);
