@@ -3,28 +3,19 @@ const pool = require("../db");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
-const validInfo = require("../middleware/validinfo");
 const authorize = require("../middleware/authorization");
 
 //register
 
 router.post("/register", async (req, res) => {
-  const {
-    customer_id,
-    username,
-    password,
-    first_name,
-    last_name,
-    postal_code,
-    gender,
-    created_at,
-  } = req.body;
+  const { username, password, first_name, last_name, postal_code, gender } =
+    req.body;
 
   try {
     //check if user exists
     const user = await pool.query(
-      "SELECT * FROM customer WHERE customer_id = $1",
-      [customer_id]
+      "SELECT * FROM customer WHERE username = $1",
+      [username]
     );
     if (user.rows.length !== 0)
       return res.status(401).json("User already exists");
@@ -34,18 +25,8 @@ router.post("/register", async (req, res) => {
     const bcryptPassword = await bcrypt.hash(password, salt);
     //enter user to database
     const newUser = await pool.query(
-      "INSERT INTO customer (customer_id,username,password,first_name,last_name,postal_code,gender,created_at) VALUES ($1, $2, $3,$4,$5,$6,$7,$8) RETURNING *",
-      [
-        customer_id,
-        username,
-        bcryptPassword,
-        first_name,
-        last_name,
-        postal_code,
-        gender,
-
-        created_at,
-      ]
+      "INSERT INTO customer (username,password,first_name,last_name,postal_code,gender) VALUES ($1, $2, $3,$4,$5,$6) RETURNING *",
+      [username, bcryptPassword, first_name, last_name, postal_code, gender]
     );
     //jwt token
     const token = jwtGenerator(newUser.rows[0].customer_id);
@@ -60,11 +41,10 @@ router.post("/register", async (req, res) => {
 //login route
 router.post("/login", async (req, res) => {
   const { id, password } = req.body;
-
   try {
     //check if user exists
     const user = await pool.query(
-      "SELECT * FROM customer WHERE customer_id = $1",
+      "SELECT * FROM customer WHERE username = $1",
       [id]
     );
 
@@ -78,7 +58,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json("Invalid Credential");
     }
     const token = jwtGenerator(user.rows[0].customer_id);
-    console.log(token.customer_id);
+
     return res.json({ token });
   } catch (err) {
     console.error(err.message);
@@ -88,7 +68,6 @@ router.post("/login", async (req, res) => {
 
 router.post("/test", async (req, res) => {
   const token = req.header("token");
-
   // Verify token
   try {
     //if not token

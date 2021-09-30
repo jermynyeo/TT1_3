@@ -1,4 +1,3 @@
-
 CREATE DATABASE ecommerce;
 
 CREATE TABLE category (
@@ -22,17 +21,17 @@ INSERT INTO category (category_id, name, description, image) VALUES
 -- Dumping structure for table ecommerce.customer
 
 CREATE TABLE customer (
-  customer_id INTEGER NOT NULL,
+  customer_id SERIAL NOT NULL,
   username varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
   first_name varchar(255) NOT NULL,
   last_name varchar(255) NOT NULL,
   postal_code varchar(255) NOT NULL,
   gender varchar(50) NOT NULL,
-  created_at date NOT NULL,
+  timestamp timestamp default current_timestamp,
   PRIMARY KEY (customer_id),
   UNIQUE (username)
-) 
+);
 
 
 INSERT INTO customer (customer_id, username, password, first_name, last_name, postal_code, gender, created_at) VALUES
