@@ -15,10 +15,10 @@ function App() {
     <div className="App">
       <Router>
         <Nav loggedin={loggedin} setLoggedin={setLoggedin} setRedirect={setLoginRedirect}/>
-        <main className="form-signin">
-          <Route path="/" exact component={() => <Login loggedin={loggedin} setLoggedin={setLoggedin} redirect={loginRedirect} setRedirect={setLoginRedirect} setRegisterRedirect={setRegisterRedirect} />} />
-          <Route path="/home" component={Home} />
-          <Route path="/register" component={() => <Register redirect={registerRedirect} setRedirect={setRegisterRedirect} />} />
+          <main className="form-signin">
+            <Route path="/" exact component={() => <Login loggedin={loggedin} setLoggedin={setLoggedin} redirect={loginRedirect} setRedirect={setLoginRedirect} setRegisterRedirect={setRegisterRedirect} />} />
+            <Route path="/home" component={Home} />
+            <Route path="/register" component={() => <Register redirect={registerRedirect} setRedirect={setRegisterRedirect} />} />
         </main>
       </Router>
     </div>
