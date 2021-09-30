@@ -20,6 +20,9 @@ import "../css/form.css";
             body: JSON.stringify({username,password})
         })
         const data = await res.json()
+        localStorage.setItem("token", JSON.stringify(data));
+        const result = localStorage.getItem('token')
+        console.log(result)
         setRedirect(true)
         setLoggedin(true)
         
@@ -52,7 +55,6 @@ import "../css/form.css";
               placeholder="Username"
               onChange={(e) => setUsername(e.target.value)}
             />
-            <label>Username</label>
           </div>
           <div className="form-floating">
             <input
@@ -61,7 +63,6 @@ import "../css/form.css";
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <label>Password</label>
           </div>
           <button
             className="w-100 btn btn-lg btn-primary"
