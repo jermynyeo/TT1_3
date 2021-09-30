@@ -75,10 +75,10 @@ function Products() {
 
   const options = categories.map((category) => ({ value: category.id, label: category.name }));
   //   setSelOptions([...selOptions, options]);
-  const options = categories.map((category) => ({
-    value: category.id,
-    label: category.name,
-  }));
+  //   const options = categories.map((category) => ({
+  //     value: category.id,
+  //     label: category.name,
+  //   }));
 
   return (
     <div className="main_content">
